@@ -1,23 +1,18 @@
-
-
 import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
-import CustomWeb3Modal from "src/components/web3modal";
-import { config } from "src/web3/connection";
-import { WagmiConfig } from "wagmi";
+import AppWithWeb3Access from "../components/AppWithWeb3Access";
+import { pstlModalConfig } from "../web3/connection";
+import { PstlW3Providers } from "@past3lle/web3-modal";
+import { PstlHooksProvider } from "@past3lle/hooks";
 
 function MyApp({ Component, pageProps }: AppProps) {
-
-    const queryClient = new QueryClient();
-
     return (
-        <WagmiConfig config={config}>
-            <QueryClientProvider client={queryClient}>
+        <PstlHooksProvider>
+            <PstlW3Providers config={pstlModalConfig}>
                 <Component {...pageProps} />
-                <CustomWeb3Modal />
-            </QueryClientProvider>
-        </WagmiConfig>
-    );
+                <AppWithWeb3Access />
+            </PstlW3Providers>
+        </PstlHooksProvider>
+    )
 }
 
 export default MyApp;
