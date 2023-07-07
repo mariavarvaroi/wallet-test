@@ -1,15 +1,11 @@
 // make a simple page
-import { useWeb3Modal } from "@web3modal/react";
+import { usePstlAccountNetworkActions, usePstlUserConnectionInfo, usePstlWeb3Modal } from "@past3lle/web3-modal";
 import React from "react"
-import { useAccount } from "wagmi";
 
 const Home = () => {
-    const { address, isConnected } = useAccount();
-    const { open, isOpen } = useWeb3Modal();
-
-    const handleClick = React.useCallback(async () => {
-        open();
-    }, [open]);
+    const { address, isConnected } = usePstlUserConnectionInfo();
+    const { isOpen } = usePstlWeb3Modal();
+    const { onAccountClick } = usePstlAccountNetworkActions()
 
     return (
         <div>
@@ -18,10 +14,14 @@ const Home = () => {
                 className={`btn whitespace-nowrap ${address ? "bg-opus-teal" : "bg-black"
                     }`}
                 disabled={isOpen}
-                onClick={handleClick}
+                onClick={onAccountClick}
+                style={{ width: 400 }}
             >
                 {isConnected ? (
-                    <span id="account-info">{address}</span>
+                    <>
+                        <span id="account-info">{address}</span><br/>
+                        <span>Click to view details</span>
+                    </>
                 ) : (
                     <span id="connect-wallet">Connect wallet</span>
                 )}
