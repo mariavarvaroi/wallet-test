@@ -27,6 +27,11 @@ export const PALETTE = {
             fontStyle: 'normal',
             textShadow: '3px 2px 2px #00000078'
           }
+        },
+        account: {
+          balanceAndAddressContainer: {
+            backgroundColor: PALETTE.mainBgOpaque
+          }
         }
       }
     }
